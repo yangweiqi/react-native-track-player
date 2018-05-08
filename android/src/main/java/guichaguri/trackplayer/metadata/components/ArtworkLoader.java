@@ -40,6 +40,8 @@ public class ArtworkLoader extends Thread {
         try {
             if(local) {
                 input = context.getContentResolver().openInputStream(uri);
+            } else if(uri.toString().startsWith("asset:/")){
+                input = context.getAssets().open(uri.toString().replace("asset:/", ""));
             } else {
                 // Use the OkHttp client from the provider in case the user has it configured
                 OkHttpClient client = OkHttpClientProvider.getOkHttpClient();

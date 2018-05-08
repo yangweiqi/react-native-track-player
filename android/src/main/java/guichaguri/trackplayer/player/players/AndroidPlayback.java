@@ -1,6 +1,7 @@
 package guichaguri.trackplayer.player.players;
 
 import android.content.Context;
+import android.content.res.AssetFileDescriptor;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnBufferingUpdateListener;
@@ -92,7 +93,14 @@ public class AndroidPlayback extends Playback implements OnInfoListener, OnCompl
             loadCallback = callback;
             if(player.isPlaying()) player.stop();
             player.reset();
-            player.setDataSource(context, url);
+            if(url.toString().startsWith("asset:/")){
+                AssetFileDescriptor descriptor = this.context.getAssets().openFd(url.toString().replace("asset:/", ""));
+                player.setDataSource(descriptor.getFileDescriptor(), descriptor.getStartOffset(), descriptor.getLength());
+                descriptor.close();
+            }
+            else{
+                player.setDataSource(context, url);
+            }
             player.prepareAsync();
         } catch(IOException ex) {
             loadCallback = null;
