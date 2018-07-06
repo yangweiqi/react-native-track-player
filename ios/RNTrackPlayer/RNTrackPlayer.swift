@@ -133,10 +133,10 @@ class RNTrackPlayer: RCTEventEmitter, MediaWrapperDelegate {
         let capabilities = castedCapabilities?.flatMap { Capability(rawValue: $0) } ?? []
         
         let enableStop = capabilities.contains(.stop)
-        let enablePause = capabilities.contains(.pause)
-        let enablePlay = capabilities.contains(.play)
-        let enablePlayNext = capabilities.contains(.next)
-        let enablePlayPrevious = capabilities.contains(.previous)
+        let enablePause = true // capabilities.contains(.pause)
+        let enablePlay = true // capabilities.contains(.play)
+        let enablePlayNext = true // capabilities.contains(.next)
+        let enablePlayPrevious = true // capabilities.contains(.previous)
         let enableSkipForward = capabilities.contains(.jumpForward)
         let enableSkipBackward = capabilities.contains(.jumpBackward)
         
